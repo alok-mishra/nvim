@@ -4,5 +4,6 @@
 
 local o = vim.o
 
-o.clipboard = "unnamed"
-o.guifont = "CaskaydiaCove NFM:h10"
+-- o.clipboard = "unnamed"
+-- o.guifont = "Inconsolata NFM:h10"
+o.guifont = "FiraCode NFM:h9"
