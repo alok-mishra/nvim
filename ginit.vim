@@ -1,4 +1,6 @@
 if exists(':GuiFont')
-  GuiFont Inconsolata\ NFM:h20
+  GuiFont FiraCode NFM:h10
   GuiRenderLigatures 1
 endif
+
+echo "== => != <= ==="
