@@ -30,6 +30,8 @@ require("lazy").setup({
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
+      reset = false, -- (DO NOT) reset the runtime path to $VIMRUNTIME and your config directory
+      paths = {}, -- add any custom paths here that you want to includes in the rtp
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
