@@ -5,5 +5,5 @@
 local o = vim.o
 
 -- o.clipboard = "unnamed"
--- o.guifont = "Inconsolata NFM:h10"
-o.guifont = "FiraCode NFM:h9"
+-- o.guifont = "FiraCode NFM:h10"
+o.guifont = "Inconsolata NFM:h10"
