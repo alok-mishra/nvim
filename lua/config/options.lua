@@ -7,3 +7,5 @@ local o = vim.o
 -- o.clipboard = "unnamed"
 -- o.guifont = "FiraCode NFM:h10"
 o.guifont = "Inconsolata NFM:h10"
+
+o.shell = "zsh"
