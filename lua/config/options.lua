@@ -5,7 +5,9 @@
 local o = vim.o
 
 -- o.clipboard = "unnamed"
--- o.guifont = "FiraCode NFM:h10"
-o.guifont = "Inconsolata NFM:h10"
+-- o.guifont = "Inconsolata NFM:h12"
+o.guifont = "FiraCode NFM:h12"
+
+print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
 
 o.shell = "zsh"

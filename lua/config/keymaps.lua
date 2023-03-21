@@ -37,5 +37,9 @@ end
 set({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 set({ "n", "v" }, "<M-r>", "<cmd>source %<cr><esc>", { desc = "Source File" })
 
-set("n", "<C-/>", "gcc", { remap = true, desc = "Comment Line" })
-set("v", "<C-/>", "gc", { remap = true, desc = "Comment Selection" })
+set("n", "<M-/>", "gcc", { remap = true, desc = "Comment Line" })
+set("v", "<M-/>", "gc", { remap = true, desc = "Comment Selection" })
+
+if vim.g.neovide then
+  print("Neovide!")
+end

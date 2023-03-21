@@ -4,4 +4,10 @@ return {
 
   -- multiple terminals for project development
   { "akinsho/toggleterm.nvim", version = "*", config = true },
+
+  -- require("noice.nvim").setup({
+  --   messages = {
+  --     view = false,
+  --   },
+  -- }),
 }

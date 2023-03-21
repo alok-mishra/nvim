@@ -3,4 +3,4 @@ if exists('g:GuiLoaded')
   GuiRenderLigatures 1
 endif
 
-echo "== => != <= ==="
+echo "=> != <= && >= === <-"
