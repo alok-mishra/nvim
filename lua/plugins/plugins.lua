@@ -31,14 +31,4 @@ return {
       })
     end,
   },
-}, {
-  "folke/noice.nvim",
-  -- enabled = false, -- disable completely
-  config = function()
-    require("noice.nvim").setup({
-      -- messages = {
-      --   view = false, -- stop neovide from crashing (not working)
-      -- },
-    })
-  end,
 }
