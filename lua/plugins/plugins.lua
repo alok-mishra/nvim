@@ -1,3 +1,6 @@
+local Util = require("lazyvim.util")
+print(Util.get_root())
+
 return {
   -- allow GUI commands such as GuiRenderLigatures
   { "equalsraf/neovim-gui-shim" },
@@ -8,9 +11,10 @@ return {
     version = "*",
     config = function()
       require("toggleterm").setup({
-        size = 10,
-        open_mapping = [[<C-\>]],
-        shell = "sh",
+        size = 12,
+        open_mapping = [[<M-\>]],
+        -- shell = "sh --login -i -c --cd " .. vim.fn.getcwd(),
+        shell = "sh --cd=" .. Util.get_root(),
         -- hide_numbers = true,
         -- shade_filetypes = {},
         -- shade_terminals = true,
@@ -31,14 +35,4 @@ return {
       })
     end,
   },
-}, {
-  "folke/noice.nvim",
-  -- enabled = false, -- disable completely
-  config = function()
-    require("noice.nvim").setup({
-      -- messages = {
-      --   view = false, -- stop neovide from crashing (not working)
-      -- },
-    })
-  end,
 }

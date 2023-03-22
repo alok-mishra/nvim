@@ -44,3 +44,9 @@ require("lazy").setup({
     },
   },
 })
+
+require("noice").setup({
+  messages = {
+    enabled = false, -- disable messages in noice to prevent neovide crashes
+  },
+})
