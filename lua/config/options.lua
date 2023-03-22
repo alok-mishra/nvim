@@ -10,4 +10,4 @@ o.guifont = "FiraCode NFM:h12"
 
 print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
 
-o.shell = "zsh"
+-- o.shell = "zsh"
