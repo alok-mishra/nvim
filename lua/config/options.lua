@@ -8,6 +8,6 @@ local o = vim.o
 -- o.guifont = "Inconsolata NFM:h12"
 o.guifont = "FiraCode NFM:h12"
 
-print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
+-- print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
 
 -- o.shell = "zsh"

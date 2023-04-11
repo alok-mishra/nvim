@@ -1,9 +1,18 @@
 local Util = require("lazyvim.util")
-print(Util.get_root())
+-- print(Util.get_root())
 
 return {
   -- allow GUI commands such as GuiRenderLigatures
   { "equalsraf/neovim-gui-shim" },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ignore_install = {
+        "help",
+      },
+    },
+  },
 
   -- multiple terminals for project development
   {
@@ -13,8 +22,10 @@ return {
       require("toggleterm").setup({
         size = 12,
         open_mapping = [[<M-\>]],
+        -- shell = "sh --login -i  --cd " .. "vim.fn.getcwd()",
         -- shell = "sh --login -i -c --cd " .. vim.fn.getcwd(),
-        shell = "sh --cd=" .. Util.get_root(),
+        -- shell = "sh --cd=" .. Util.get_root(),
+        shell = "sh",
         -- hide_numbers = true,
         -- shade_filetypes = {},
         -- shade_terminals = true,
