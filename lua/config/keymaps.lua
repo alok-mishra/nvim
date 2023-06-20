@@ -6,19 +6,28 @@
 -- Autocomplete set to <TAB>
 -- Mutiple terminals
 
-local function set(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, opts)
   opts = opts or {}
   mode = mode or { "n" }
   opts.silent = opts.silent ~= false
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+local function nmap(lhs, rhs, opts)
+  map("n", lhs, rhs, opts)
+end
+
+local function vmap(lhs, rhs, opts)
+  map("v", lhs, rhs, opts)
+end
+
 local del = vim.keymap.del
 
-del("n", "<C-h>")
+vim.keymap.del("n", "<C-h>")
 del("n", "<C-j>")
 del("n", "<C-k>")
 del("n", "<C-l>")
+del("n", "<C-/>")
 
 local n = {
   { "<M-h>", "<C-w>h", "Left Pane" },
@@ -31,11 +40,11 @@ local n = {
 }
 
 for _, v in ipairs(n) do
-  set("n", v[1], v[2], { remap = true, desc = v[3] })
+  nmap(v[1], v[2], { remap = true, desc = v[3] })
 end
 
-set({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-set({ "n", "v" }, "<M-r>", "<cmd>source %<cr><esc>", { desc = "Source File" })
+map({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+map({ "n", "v" }, "<M-r>", "<cmd>source %<cr><esc>", { desc = "Source File" })
 
-set("n", "<C-_>", "gcc", { remap = true, desc = "Comment Line" })
-set("v", "<C-_>", "gc", { remap = true, desc = "Comment Selection" })
+nmap("<C-/>", "gcc", { remap = true, desc = "Comment Line" })
+vmap("<C-/>", "gc", { remap = true, desc = "Comment Selection" })

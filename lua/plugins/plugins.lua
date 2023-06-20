@@ -25,7 +25,7 @@ return {
         -- shell = "sh --login -i  --cd " .. "vim.fn.getcwd()",
         -- shell = "sh --login -i -c --cd " .. vim.fn.getcwd(),
         -- shell = "sh --cd=" .. Util.get_root(),
-        shell = "sh",
+        -- shell = "sh",
         -- hide_numbers = true,
         -- shade_filetypes = {},
         -- shade_terminals = true,
