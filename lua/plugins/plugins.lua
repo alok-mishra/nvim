@@ -21,7 +21,7 @@ return {
     config = function()
       require("toggleterm").setup({
         size = 12,
-        open_mapping = [[<M-\>]],
+        open_mapping = [[<C-`>]],
         -- shell = "sh --login -i  --cd " .. "vim.fn.getcwd()",
         -- shell = "sh --login -i -c --cd " .. vim.fn.getcwd(),
         -- shell = "sh --cd=" .. Util.get_root(),
