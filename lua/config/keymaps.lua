@@ -1,4 +1,4 @@
--- Default keymaps: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- default: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 -- TODO:
 -- Autocomplete set to <TAB>
@@ -33,12 +33,15 @@ for _, n in ipairs({
   { "<C-h>", "[b", "Prev Buffer" },
   { "<C-l>", "]b", "Next Buffer" },
 
+  { "<C-j>", "<cmd>vertical resize -2<cr>", "Decrease window width" },
+  { "<C-k>", "<cmd>vertical resize +2<cr>", "Increase window width" },
+
   { "<M-d>", "<leader>bd", "Delete Buffer" },
   { "<M-`>", "<leader>bb", "Toggle Buffer" },
   { "<M-s>", "<cmd>w<cr><esc>", "Save File" },
 
   { "<M-e>", "<leader>e", "Explorer" },
-  { "<M-r>", "<cmd>source %<cr><esc>", "Source File" },
+  { "<M-r>", "<cmd>luafile %<cr>", "Source File" },
 
   { "<C-/>", "gcc", "Comment Line" },
 

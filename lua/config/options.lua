@@ -1,6 +1,4 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- default: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
 -- TODO:
 -- Mutiple terminals
@@ -15,6 +13,12 @@ local o = vim.opt
 o.guifont = "FiraCode Nerd Font:h12"
 
 o.relativenumber = false
+
+o.tabstop = 4
+o.softtabstop = 4
+o.shiftwidth = 4
+
+o.smartindent = true
 
 -- print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
 
