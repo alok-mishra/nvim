@@ -2,6 +2,8 @@
 
 -- TODO:
 -- Autocomplete set to <TAB>
+--
+local Util = require("lazyvim.util")
 
 for _, d in ipairs({
   "<C-h>",
@@ -45,6 +47,14 @@ for _, n in ipairs({
 
   { "<C-/>", "gcc", "Comment Line" },
 
+  {
+    "<C-`>",
+    function()
+      Util.float_term(nil, { cwd = Util.get_root() })
+    end,
+    "Terminal",
+  },
+
   { "H", "0", "Start of line" },
   { "L", "$", "End of line" },
 }) do
@@ -53,6 +63,15 @@ end
 
 for _, v in ipairs({
   { "<C-/>", "gc", "Comment Selection" },
+
+  { "H", "0", "Start of line" },
+  { "L", "$", "End of line" },
 }) do
   smap("v", v)
+end
+
+for _, t in ipairs({
+  { "<C-`>", "<cmd>close<cr>", "Hide Terminal" },
+}) do
+  smap("t", t)
 end
