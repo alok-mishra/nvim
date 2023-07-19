@@ -2,14 +2,8 @@ local Util = require("lazyvim.util")
 -- print(Util.get_root())
 
 return {
-  -- { "ellisonleao/gruvbox.nvim" },
 
-  -- {
-  --   "LazyVim/LazyVim",
-  --   opts = {
-  --     colorscheme = "gruvbox",
-  --   },
-  -- },
+  -- { "github/copilot.vim" },
 
   -- allow GUI commands such as GuiRenderLigatures - not needed in terminal
   -- { "equalsraf/neovim-gui-shim" },
