@@ -1,19 +1,29 @@
-local Util = require("lazyvim.util")
+-- local Util = require("lazyvim.util")
 -- print(Util.get_root())
 
 return {
-
-  -- { "github/copilot.vim" },
-
-  -- allow GUI commands such as GuiRenderLigatures - not needed in terminal
-  -- { "equalsraf/neovim-gui-shim" },
-
   -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = {
-  --     ignore_install = {
-  --       "help",
-  --     },
-  --   },
+  --   "goolord/alpha-nvim",
+  --
+  --   event = "VimEnter",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   opts = { require("alpha.themes.startify").config },
   -- },
+  --
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      follow = true,
+    },
+  },
+
+  {
+    "echasnovski/mini.comment",
+    opts = {
+      mappings = {
+        comment = "<C-/>",
+        comment_line = "<C-_>",
+      },
+    },
+  },
 }

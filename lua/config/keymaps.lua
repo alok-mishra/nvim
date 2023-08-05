@@ -2,6 +2,7 @@
 
 -- TODO:
 -- Autocomplete set to <TAB>
+-- Convert to individual lines with nmap, vmap, etc so logic can be applied
 --
 local Util = require("lazyvim.util")
 
@@ -19,6 +20,9 @@ local function map(mode, lhs, rhs, opts)
   opts = opts or {}
   mode = mode or { "n" }
   opts.silent = opts.silent ~= false
+  -- if opts.remap and not vim.g.vscode then
+  --   opts.remap = nil
+  -- end
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -42,10 +46,10 @@ for _, n in ipairs({
   { "<M-`>", "<leader>bb", "Toggle Buffer" },
   { "<M-s>", "<cmd>w<cr><esc>", "Save File" },
 
+  { "<M-q>", "<leader>qq", "Quit All" },
+
   { "<M-e>", "<leader>e", "Explorer" },
   { "<M-r>", "<cmd>luafile %<cr>", "Source File" },
-
-  { "<C-/>", "gcc", "Comment Line" },
 
   {
     "<C-`>",
@@ -61,9 +65,14 @@ for _, n in ipairs({
   smap("n", n)
 end
 
-for _, v in ipairs({
-  { "<C-/>", "gc", "Comment Selection" },
+for _, i in ipairs({
+  { "jk", "<Esc>", "Escape" }, -- available in all environments
+  { "kj", "<Esc>", "Escape" },
+}) do
+  smap("i", i)
+end
 
+for _, v in ipairs({
   { "H", "0", "Start of line" },
   { "L", "$", "End of line" },
 }) do
