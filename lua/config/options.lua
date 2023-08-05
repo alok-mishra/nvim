@@ -15,10 +15,15 @@ o.guifont = "FiraCode Nerd Font:h12"
 o.relativenumber = false
 
 o.tabstop = 4
-o.softtabstop = 4
 o.shiftwidth = 4
+o.softtabstop = 4
+o.expandtab = true
+o.autoindent = true
 
-o.smartindent = true
+o.conceallevel = 0 -- don't hide characters, like quotes in json
+o.wrap = true -- wrap lines
+
+-- o.smartindent = true
 
 -- print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
 
