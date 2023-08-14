@@ -5,6 +5,12 @@ return {
     opts = {
       flavour = "mocha",
       transparent_background = true,
+
+      custom_highlights = function(colors)
+        return {
+          CmpBorder = { fg = colors.pink },
+        }
+      end,
     },
   },
 

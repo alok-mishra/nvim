@@ -5,6 +5,8 @@
 
 local o = vim.opt
 
+-- vim.g.node_host_prog = vim.fn.system("which neovim-node-host")
+
 -- o.fsync = false -- don't flush files (antivirus slowdown), default is false, but just in case
 
 -- o.clipboard = "unnamed"

@@ -39,6 +39,8 @@ for _, n in ipairs({
   { "<C-h>", "[b", "Prev Buffer" },
   { "<C-l>", "]b", "Next Buffer" },
 
+  { "<C-M-l>", "<leader>|", "Split Right" },
+
   { "<C-j>", "<cmd>vertical resize -2<cr>", "Decrease window width" },
   { "<C-k>", "<cmd>vertical resize +2<cr>", "Increase window width" },
 
