@@ -53,10 +53,11 @@ return {
 
   {
     "echasnovski/mini.comment",
+
     opts = {
       mappings = {
-        comment = "<C-/>",
-        comment_line = "<C-/>",
+        comment = "<M-/>",
+        comment_line = "<M-/>",
       },
     },
   },

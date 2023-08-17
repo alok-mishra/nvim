@@ -46,7 +46,9 @@ for _, n in ipairs({
 
   { "<M-d>", "<leader>bd", "Delete Buffer" },
   { "<M-`>", "<leader>bb", "Toggle Buffer" },
+
   { "<M-s>", "<cmd>w<cr><esc>", "Save File" },
+  { "<M-S>", "<cmd>noautocmd w<cr><esc>", "NoA Save File" },
 
   { "<M-q>", "<leader>qq", "Quit All" },
 
