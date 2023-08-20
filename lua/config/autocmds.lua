@@ -6,7 +6,14 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 autocmd("Filetype", {
-  callback = function()
-    vim.opt.formatoptions:remove("o") -- no newline auto comment
-  end,
+    callback = function()
+        vim.opt.formatoptions:remove("o") -- no newline auto comment
+    end,
+})
+
+autocmd("BufRead", {
+    pattern = { "*.aliases" },
+    callback = function()
+        vim.bo.filetype = "sh"
+    end,
 })

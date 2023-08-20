@@ -9,24 +9,25 @@ local o = vim.opt
 
 -- o.fsync = false -- don't flush files (antivirus slowdown), default is false, but just in case
 
+-- o.shell = "zsh"
 -- o.clipboard = "unnamed"
 -- o.guifont = "Inconsolata NFM:h12"
 -- o.guifont = "FiraCode NFM:h12"
+
 o.guifont = "FiraCode Nerd Font:h12"
 
 o.relativenumber = false
 
+-- spacing
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
 o.expandtab = true
-o.autoindent = true
+o.smartindent = true
+
+o.wrap = true -- wrap lines
+o.linebreak = true -- wrap lines at convenient points
 
 o.conceallevel = 0 -- don't hide characters, like quotes in json
-o.wrap = true -- wrap lines
-
--- o.smartindent = true
 
 -- print("-> --> => === != </> <= </ www /> >= <=> !== == <== <-- <-")
-
--- o.shell = "zsh"
