@@ -17,3 +17,11 @@ autocmd("BufRead", {
         vim.bo.filetype = "sh"
     end,
 })
+
+-- always open help in vertical split
+autocmd("FileType", {
+    pattern = { "help" },
+    callback = function()
+        vim.cmd("wincmd L")
+    end,
+})
