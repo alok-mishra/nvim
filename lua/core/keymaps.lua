@@ -1,7 +1,4 @@
--- Plugin shortcuts
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<cr>", { desc = "Find in files" })
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+-- Note: Plugin-specific keymaps are defined in lua/core/plugins.lua
 
 -- Escape alternatives
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape" })

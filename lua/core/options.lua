@@ -1,6 +1,9 @@
 local o = vim.opt
 local g = vim.g
 
+-- Set to true if you have a Nerd Font installed
+g.have_nerd_font = true
+
 -- Disable rarely used built-in plugins for faster startup
 g.loaded_gzip = 1              -- disable gzip file handling
 g.loaded_zip = 1               -- disable zip file handling
@@ -24,6 +27,9 @@ o.number = true                -- show line numbers
 o.relativenumber = true        -- show relative line numbers
 o.termguicolors = true         -- enable 24-bit RGB colors
 o.conceallevel = 0             -- don't hide characters like quotes in json
+o.signcolumn = "yes"           -- always show sign column (prevents layout shift)
+o.cursorline = true            -- highlight current line
+o.showmode = false             -- don't show mode (shown in statusline)
 
 -- Indentation
 o.expandtab = true             -- use spaces instead of tabs
@@ -40,6 +46,7 @@ o.linebreak = true             -- wrap at convenient points
 o.smartcase = true             -- case-sensitive if uppercase present
 o.ignorecase = true            -- needed for smartcase to work
 o.hlsearch = false             -- don't highlight search results permanently
+o.inccommand = "split"         -- preview substitutions live
 
 -- Better scrolling
 o.scrolloff = 8                -- keep 8 lines above/below cursor
@@ -54,8 +61,14 @@ o.undofile = true              -- persistent undo history
 o.backup = false               -- don't create backup files
 o.swapfile = false             -- don't create swap files
 
--- Clipboard
-o.clipboard = "unnamedplus"    -- use system clipboard
+-- Clipboard (scheduled to avoid startup slowdown)
+vim.schedule(function()
+  o.clipboard = "unnamedplus"  -- use system clipboard
+end)
+
+-- Performance
+o.updatetime = 250             -- faster completion and diagnostics
+o.timeoutlen = 300             -- shorter timeout for which-key
 
 -- GUI font (for GUI versions)
 o.guifont = "FiraCode Nerd Font:h12"

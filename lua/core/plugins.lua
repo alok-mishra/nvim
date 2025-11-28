@@ -1,3 +1,4 @@
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -14,8 +15,225 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Setup plugins
 require("lazy").setup({
+  -- Utilities library (required by telescope and others)
   { "nvim-lua/plenary.nvim" },
-  { "nvim-telescope/telescope.nvim", tag = "0.1.3" },
-  { "folke/which-key.nvim" },
+
+  -- Fuzzy finder
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    event = "VimEnter",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+    },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          layout_strategy = "horizontal",
+          layout_config = {
+            prompt_position = "top",
+          },
+          sorting_strategy = "ascending",
+        },
+      })
+
+      -- Keymaps for telescope
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
+      vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "[F]ind [W]ord" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
+      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "[F]ind [R]ecent files" })
+      vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find buffers" })
+    end,
+  },
+
+  -- Show pending keybinds
+  {
+    "folke/which-key.nvim",
+    event = "VimEnter",
+    opts = {
+      delay = 0,
+      icons = {
+        mappings = vim.g.have_nerd_font,
+        keys = vim.g.have_nerd_font and {} or {
+          Up = "<Up> ",
+          Down = "<Down> ",
+          Left = "<Left> ",
+          Right = "<Right> ",
+          C = "<C-…> ",
+          M = "<M-…> ",
+          S = "<S-…> ",
+          CR = "<CR> ",
+          Esc = "<Esc> ",
+          Space = "<Space> ",
+          Tab = "<Tab> ",
+        },
+      },
+      spec = {
+        { "<leader>f", group = "[F]ind" },
+        { "<leader>d", group = "[D]ocument" },
+        { "<leader>r", group = "[R]ename" },
+        { "<leader>c", group = "[C]ode" },
+      },
+    },
+  },
+
+  -- Colorscheme
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000, -- Load before other plugins
+    config = function()
+      require("gruvbox").setup({
+        contrast = "hard",
+        italic = {
+          strings = false,
+          comments = false,
+          operators = false,
+          folds = false,
+        },
+      })
+      vim.cmd.colorscheme("gruvbox")
+    end,
+  },
+
+  -- Treesitter for better syntax highlighting
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline" },
+      auto_install = true,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      indent = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
+  -- LSP Configuration
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      -- Mason for automatic LSP installation
+      { "mason-org/mason.nvim", opts = {} },
+      "mason-org/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+
+      -- Status updates for LSP
+      { "j-hui/fidget.nvim", opts = {} },
+
+      -- Lua LSP configuration for Neovim
+      { "folke/lazydev.nvim", ft = "lua", opts = {} },
+    },
+    config = function()
+      -- LSP keymaps on attach
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("custom-lsp-attach", { clear = true }),
+        callback = function(event)
+          local map = function(keys, func, desc)
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          end
+
+          map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+          map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+          map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+          map("gy", require("telescope.builtin").lsp_type_definitions, "[G]oto T[y]pe Definition")
+          map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+          map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+          map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+          map("K", vim.lsp.buf.hover, "Hover Documentation")
+          map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+        end,
+      })
+
+      -- LSP servers to install
+      local servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = { callSnippet = "Replace" },
+              diagnostics = { globals = { "vim" } },
+            },
+          },
+        },
+        -- Add more servers as needed:
+        -- ts_ls = {},
+        -- pyright = {},
+        -- gopls = {},
+      }
+
+      -- Install servers
+      local ensure_installed = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure_installed, { "stylua" }) -- Lua formatter
+      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+      -- Setup LSP servers
+      require("mason-lspconfig").setup({
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend(
+              "force",
+              {},
+              vim.lsp.protocol.make_client_capabilities(),
+              server.capabilities or {}
+            )
+            require("lspconfig")[server_name].setup(server)
+          end,
+        },
+      })
+    end,
+  },
+
+  -- Autocompletion
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    event = "InsertEnter",
+    dependencies = { "folke/lazydev.nvim" },
+    opts = {
+      keymap = { preset = "default" },
+      appearance = { nerd_font_variant = "mono" },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "lazydev" },
+        providers = {
+          lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+        },
+      },
+      signature = { enabled = true },
+    },
+  },
+}, {
+  ui = {
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = "⌘",
+      config = "🛠",
+      event = "📅",
+      ft = "📂",
+      init = "⚙",
+      keys = "🗝",
+      plugin = "🔌",
+      runtime = "💻",
+      require = "🌙",
+      source = "📄",
+      start = "🚀",
+      task = "📌",
+      lazy = "💤 ",
+    },
+  },
 })
+
+-- Keymap for lazy.nvim itself
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open [L]azy" })
