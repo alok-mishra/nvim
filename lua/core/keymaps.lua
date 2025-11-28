@@ -51,6 +51,11 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
 -- Better pasting (don't lose clipboard)
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste without losing clipboard" })
 
+-- System clipboard integration
+vim.keymap.set({"n", "v"}, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set({"n", "v"}, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set({"n", "v"}, "<leader>d", '"_d', { desc = "Delete without affecting registers" })
+
 -- Quick quit
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })

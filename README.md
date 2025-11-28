@@ -31,7 +31,10 @@ nvim
 - **Find text**: `<leader>fw`
 - **Go to definition**: `gd`
 - **Hover docs**: `K`
+- **System clipboard**: `<leader>y` (yank), `<leader>p` (paste)
 - **Plugin manager**: `<leader>l`
+
+**Note**: Nvim clipboard is separate from system clipboard by default. This lets you copy from system, delete in nvim, and paste the system content.
 
 See `.claude/docs/keymaps.md` for complete list.
 

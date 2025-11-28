@@ -61,10 +61,9 @@ o.undofile = true              -- persistent undo history
 o.backup = false               -- don't create backup files
 o.swapfile = false             -- don't create swap files
 
--- Clipboard (scheduled to avoid startup slowdown)
-vim.schedule(function()
-  o.clipboard = "unnamedplus"  -- use system clipboard
-end)
+-- Clipboard: Keep nvim clipboard separate from system
+-- Use "+ register for system clipboard (e.g., "+p to paste from system)
+-- o.clipboard = ""  -- explicitly separate (this is the default)
 
 -- Performance
 o.updatetime = 250             -- faster completion and diagnostics
