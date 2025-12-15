@@ -51,6 +51,25 @@ require("lazy").setup({
     end,
   },
 
+  -- Fancy notifications
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+    },
+    config = function(_, opts)
+      local notify = require("notify")
+      notify.setup(opts)
+      vim.notify = notify
+    end,
+  },
+
   -- Show pending keybinds
   {
     "folke/which-key.nvim",
@@ -201,7 +220,7 @@ require("lazy").setup({
     event = "InsertEnter",
     dependencies = { "folke/lazydev.nvim" },
     opts = {
-      keymap = { preset = "default" },
+      keymap = { preset = "super-tab" },
       appearance = { nerd_font_variant = "mono" },
       completion = {
         documentation = { auto_show = true, auto_show_delay_ms = 200 },

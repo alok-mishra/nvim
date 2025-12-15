@@ -45,7 +45,7 @@ o.linebreak = true             -- wrap at convenient points
 -- Search
 o.smartcase = true             -- case-sensitive if uppercase present
 o.ignorecase = true            -- needed for smartcase to work
-o.hlsearch = false             -- don't highlight search results permanently
+o.hlsearch = true              -- highlight all search results
 o.inccommand = "split"         -- preview substitutions live
 
 -- Better scrolling

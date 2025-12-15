@@ -59,3 +59,18 @@ vim.keymap.set({"n", "v"}, "<leader>d", '"_d', { desc = "Delete without affectin
 -- Quick quit
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
+
+-- Reload config
+vim.keymap.set("n", "<C-M-r>", function()
+  -- Clear module cache for core modules
+  for name, _ in pairs(package.loaded) do
+    if name:match("^core") then
+      package.loaded[name] = nil
+    end
+  end
+  -- Reload core modules (skip plugins)
+  require("core.options")
+  require("core.keymaps")
+  require("core.autocmds")
+  vim.notify("Config reloaded!", vim.log.levels.INFO)
+end, { desc = "Reload config" })

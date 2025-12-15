@@ -49,3 +49,23 @@ autocmd("BufReadPost", {
         end
     end,
 })
+
+-- Auto-reload config when files are saved
+autocmd("BufWritePost", {
+    group = augroup("custom-reload-config", { clear = true }),
+    pattern = vim.fn.stdpath("config") .. "/**/*.lua",
+    desc = "Reload Neovim config when saving lua files",
+    callback = function(event)
+        local filepath = vim.api.nvim_buf_get_name(event.buf)
+        local config_dir = vim.fn.stdpath("config")
+
+        -- Convert filepath to module name (e.g., /path/to/lua/core/options.lua -> core.options)
+        local module_name = filepath:gsub(config_dir .. "/lua/", ""):gsub("%.lua$", ""):gsub("/", ".")
+
+        -- Clear cache and reload the specific module
+        package.loaded[module_name] = nil
+        require(module_name)
+
+        vim.notify("Reloaded " .. module_name, vim.log.levels.INFO)
+    end,
+})
