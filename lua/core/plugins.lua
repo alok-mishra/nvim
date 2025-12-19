@@ -101,12 +101,61 @@ require("lazy").setup({
     },
   },
 
+  -- Git diff view (side-by-side like VSCode)
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Open git diff view" },
+      { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close git diff view" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+    },
+  },
+
+  -- Git signs in gutter
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+      on_attach = function(bufnr)
+        local gs = require('gitsigns')
+        local map = function(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+        end
+
+        -- Navigation between hunks (changes)
+        map('n', ']c', gs.next_hunk, 'Next git change')
+        map('n', '[c', gs.prev_hunk, 'Previous git change')
+
+        -- View changes
+        map('n', '<leader>hp', gs.preview_hunk, 'Preview git hunk')
+        map('n', '<leader>hd', gs.diffthis, 'Diff this file')
+        map('n', '<leader>hb', gs.blame_line, 'Blame line')
+
+        -- Stage/reset hunks
+        map('n', '<leader>hs', gs.stage_hunk, 'Stage hunk')
+        map('n', '<leader>hr', gs.reset_hunk, 'Reset hunk')
+        map('v', '<leader>hs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, 'Stage selection')
+        map('v', '<leader>hr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, 'Reset selection')
+      end,
+    },
+  },
+
   -- Colorscheme
   {
     "ellisonleao/gruvbox.nvim",
     priority = 1000, -- Load before other plugins
     config = function()
       require("gruvbox").setup({
+        transparent_mode = true,
         contrast = "hard",
         italic = {
           strings = false,
@@ -116,6 +165,9 @@ require("lazy").setup({
         },
       })
       vim.cmd.colorscheme("gruvbox")
+
+      -- Make sign column background match editor background
+      vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
     end,
   },
 
@@ -154,6 +206,14 @@ require("lazy").setup({
       { "folke/lazydev.nvim", ft = "lua", opts = {} },
     },
     config = function()
+      -- Configure diagnostics to show inline instead of gutter signs
+      vim.diagnostic.config({
+        virtual_text = true,  -- Show diagnostics at end of line
+        signs = false,         -- Hide gutter signs (H, W, E, I)
+        underline = true,      -- Underline problematic code
+        update_in_insert = false,
+        severity_sort = true,
+      })
       -- LSP keymaps on attach
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("custom-lsp-attach", { clear = true }),

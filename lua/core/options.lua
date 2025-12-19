@@ -27,7 +27,7 @@ o.number = true                -- show line numbers
 o.relativenumber = true        -- show relative line numbers
 o.termguicolors = true         -- enable 24-bit RGB colors
 o.conceallevel = 0             -- don't hide characters like quotes in json
-o.signcolumn = "yes"           -- always show sign column (prevents layout shift)
+o.signcolumn = "yes:1"         -- always show 1-width sign column (prevents shifting)
 o.cursorline = true            -- highlight current line
 o.showmode = false             -- don't show mode (shown in statusline)
 

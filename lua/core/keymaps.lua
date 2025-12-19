@@ -74,3 +74,8 @@ vim.keymap.set("n", "<C-M-r>", function()
   require("core.autocmds")
   vim.notify("Config reloaded!", vim.log.levels.INFO)
 end, { desc = "Reload config" })
+
+-- Diagnostics (LSP hints, warnings, errors)
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
